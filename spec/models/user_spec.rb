@@ -6,6 +6,13 @@ RSpec.describe User, type: :model do
    end
 
   describe 'ユーザー新規登録' do
+    context '新規登録がうまくいくとき' do
+      it "全ての情報が登録出来ること" do
+        expect(@user).to be_valid
+      end
+    end
+
+    context '新規登録がうまくいかないとき' do
     it "nicknameが空だと登録できない" do
       @user.nickname = nil
       @user.valid?
@@ -34,16 +41,26 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password can't be blank")
       end
     it "passwordが6文字以下であれば登録できない" do
-      @user.password = "00000a"
-      @user.encrypted_password = "00000a"
+      @user.password = "000000"
+      @user.encrypted_password = "000000"
       @user.valid?
       expect(@user.errors.full_messages).to include()
       end
-    it "passwordが半角英数字混合でなければ登録できない" do
-      @user.password = "aaaaaa"
+    it "半角数字だけでは登録できない" do
+      @user.password = "111111"
       @user.valid?
       expect(@user.errors.full_messages).to include()
       end
+      it "半角英字だけでは登録できない" do
+        @user.password = "aaaaaa"
+        @user.valid?
+        expect(@user.errors.full_messages).to include()
+      end
+      it "全角では登録できない" do
+        @user.password = "ああああああ"
+        @user.valid?
+        expect(@user.errors.full_messages).to include()
+        end
     it "encrypted_passwordが空では登録できない" do
       @user.encrypted_password = nil
       @user.valid?
@@ -99,6 +116,7 @@ RSpec.describe User, type: :model do
       @user.birth_day = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("Birth day can't be blank")
+    end
     end
   end
 end
