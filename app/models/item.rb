@@ -16,7 +16,7 @@ class Item < ApplicationRecord
     validates :description
     validates :price
   end
-    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
     validates :price, numericality: { only_integer: true, message: "Half-width number." }
 
     with_options  numericality: { other_than: 0, message: "SELECT" } do
