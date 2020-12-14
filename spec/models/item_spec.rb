@@ -31,27 +31,27 @@ RSpec.describe Item, type: :model do
       it 'categoryが未選択だと出品できない' do
         @item.category_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category SELECT")
+        expect(@item.errors.full_messages).to include('Category SELECT')
       end
       it 'conditionが未選択だと出品できない' do
         @item.condition_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition SELECT")
+        expect(@item.errors.full_messages).to include('Condition SELECT')
       end
       it 'postageが未選択だと出品できない' do
         @item.postage_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Postage SELECT")
+        expect(@item.errors.full_messages).to include('Postage SELECT')
       end
       it 'regionが未選択だと出品できない' do
         @item.region_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Region SELECT")
+        expect(@item.errors.full_messages).to include('Region SELECT')
       end
       it 'shipping_dataが未選択だと出品できない' do
         @item.shipping_data_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping data SELECT")
+        expect(@item.errors.full_messages).to include('Shipping data SELECT')
       end
       it 'priceが空だと出品できない' do
         @item.price = nil
@@ -59,19 +59,19 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it 'priceが全角数字だと出品できない' do
-        @item.price = "２０００"
+        @item.price = '２０００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price Half-width number.")
+        expect(@item.errors.full_messages).to include('Price Half-width number.')
       end
       it 'priceが299以下の場合は保存できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
       it 'priceが10,000,000以上の場合は保存できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
     end
   end
