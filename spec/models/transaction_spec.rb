@@ -9,6 +9,10 @@ RSpec.describe Transaction, type: :model do
       it '全ての値が正しく入力されていれば購入できること' do
         expect(@transaction).to be_valid
       end
+      it 'building_nameは空でも登録できる' do
+        @transaction.building_name = nil
+        expect(@transaction).to be_valid
+      end
     end
     context '商品購入がうまくいかない時' do
       it 'postal_codeが空だと購入できない' do
@@ -50,6 +54,16 @@ RSpec.describe Transaction, type: :model do
         @transaction.token = nil
         @transaction.valid?
         expect(@transaction.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では登録できないこと' do
+        @transaction.user_id = nil
+        @transaction.valid?
+        expect(@transaction.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では登録できないこと' do
+        @transaction.item_id = nil
+        @transaction.valid?
+        expect(@transaction.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

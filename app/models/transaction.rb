@@ -9,6 +9,8 @@ class Transaction
     validates :address
     validates :phone_number, format: { with: /\A0[789]0\d{8}\z/, message: 'Input only number' }
     validates :token
+    validates :user_id
+    validates :item_id
   end
 
   def save
