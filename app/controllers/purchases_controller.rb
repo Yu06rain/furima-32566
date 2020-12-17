@@ -4,12 +4,8 @@ class PurchasesController < ApplicationController
 
   def index
     @transaction = Transaction.new
-    if current_user.id == @item.user_id
+    if current_user.id == @item.user_id || @item.purchase.present?
       redirect_to  root_path
-    end
-
-    if @item.purchase.present?
-      redirect_to root_path
     end
   end
 
