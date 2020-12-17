@@ -50,6 +50,11 @@ RSpec.describe Transaction, type: :model do
         @transaction.valid?
         expect(@transaction.errors.full_messages).to include('Phone number Input only number')
       end
+      it 'phone_numberが数字のみでないと登録できない' do
+        @transaction.phone_number = '090aaaaああああ'
+        @transaction.valid?
+        expect(@transaction.errors.full_messages).to include('Phone number Input only number')
+      end
       it 'tokenが空では登録できないこと' do
         @transaction.token = nil
         @transaction.valid?
